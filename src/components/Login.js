@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../assets/imagens/logo.png';
 import styled from 'styled-components';
 
+
 export default function Login() {
     return (
         <ContainerLogin>
@@ -39,11 +40,11 @@ const ContainerLogin = styled.div`
         margin-top: 6px;
         border: 1px solid #D4D4D4;
         border-radius: 5px;
+        padding-left: 11px;
     }
 
     input::placeholder {
         color: #D4D4D4;
-        padding-left: 11px;
         font-size: 15px;
     }
 
@@ -66,7 +67,7 @@ const ContainerLogin = styled.div`
         text-decoration-line: underline;
         color: #52B6FF;
         margin-top: 25px;
-        margin-bottom: 198px;
+        margin-bottom: 150px;
     }
 `;
 
