@@ -20,22 +20,23 @@ export default function Footer() {
 }
 
 const ContainerFooter = styled.div `
-    width: 375px;
+    width: 100vw;
     height: 101px;
     position: fixed;
     bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 const ContainerPalavras = styled.div `
-    width: 375px;
+    width: 100vw;
     height: 70px;
     background-color: #FFFFFF;
     position: fixed;
     bottom: 0;
     display: flex;
     justify-content: space-between;
-   
-   
     
     h1 {
         color: #52B6FF;
@@ -46,24 +47,22 @@ const ContainerPalavras = styled.div `
     }
 `;
 
-
 const ContainerHoje = styled.div `
     width: 91px;
     height: 91px;
     background-color: #52B6FF;
     border-radius: 50px;
-    margin-left: 140px;
+    margin: auto auto;
+    margin-bottom: 10px;
     display: flex;
     z-index: 1;
     position: absolute;
     
-
     h2 {
         color: white;
         font-size: 18px;
         margin: auto auto;
     }
- 
 `;
 
 const ContainerImagem = styled.div `
@@ -73,6 +72,3 @@ const ContainerImagem = styled.div `
     margin-left: 16px;
     margin-top: 7px;
 `;
-
-
-

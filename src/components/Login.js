@@ -37,7 +37,8 @@ const ContainerLogin = styled.div`
         width: 303px;
         height: 45px;
         margin: auto auto;
-        margin-top: 6px;
+        margin-bottom: 1px;
+        margin-top: 8px;
         border: 1px solid #D4D4D4;
         border-radius: 5px;
         padding-left: 11px;
@@ -56,7 +57,7 @@ const ContainerLogin = styled.div`
         margin: auto auto;
         border: none;
         border-radius: 4.7px;
-        margin-top: 6px;
+        margin-top: 8px;
         font-size: 15px;
     }
 

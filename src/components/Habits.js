@@ -49,7 +49,6 @@ const ContainerText = styled.div `
 const ContainerHabits = styled.div `
     width: 100%;
     height: 100%;
-    background: #E5E5E5;
     display: flex;
     flex-direction: column;
     margin-top: 70px;
