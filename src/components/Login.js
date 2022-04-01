@@ -1,22 +1,77 @@
 import { Link } from 'react-router-dom';
-import Logo from '../assets/imagens/logo.png';
+import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { useContext } from "react";
+import { ThreeDots } from "react-loader-spinner";
+import axios from "axios";
 import styled from 'styled-components';
-
+import Logo from '../assets/imagens/logo.png';
+import UserContext from '../Contexts/userContext'
 
 export default function Login() {
+    const {setToken, setImgHeader} = useContext(UserContext)
+    const navigate = useNavigate();
+
+    const [infosLogin, setInfosLogin] = useState({emailLogin: "", passwordLogin: ""})
+    const [isloading, setIsLoading] = useState(false)
+
+    const objLogin = {
+        email: infosLogin.emailLogin,
+        password: infosLogin.passwordLogin
+    }
+
+    function LoginUser (e) {
+        e.preventDefault()
+        setIsLoading(true)
+
+        const URLLOGIN =  "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login"
+        const promise = axios.post(URLLOGIN, objLogin);
+        
+        promise.then(response => {
+            const {data} = response;
+            console.log(data)
+            setToken(data.token)
+            setImgHeader(data.image)
+            setIsLoading(false)
+            navigate("/hoje");
+        })
+        promise.catch(err => {
+            alert('Usuário inexiste ou usuário e senha incorretos!')
+            setIsLoading(false)
+        })
+    }
+
+    const LoadInputs = inputs () 
+
+    function inputs () {
+        return (
+            isloading === true ?
+            <form onSubmit={LoginUser}>
+                <input type="email" placeholder="Email" value={infosLogin.emailLogin} disabled={true} onChange={(e) => setInfosLogin({...infosLogin, emailLogin: e.target.value})} ></input>
+                <input type="password" placeholder="Senha" value={infosLogin.passwordLogin} disabled={true} onChange={(e) => setInfosLogin({...infosLogin, passwordLogin: e.target.value})}></input>
+                <button type='submit' disabled>
+                 <ThreeDots color="#FFF" height={50} width={50} />
+                </button>
+            </form>
+            :
+            <form onSubmit={LoginUser}>
+                <input type="email" placeholder="Email" value={infosLogin.emailLogin} disabled={false} onChange={(e) => setInfosLogin({...infosLogin, emailLogin: e.target.value})} ></input>
+                <input type="password" placeholder="Senha" value={infosLogin.passwordLogin} disabled={false}  onChange={(e) => setInfosLogin({...infosLogin, passwordLogin: e.target.value})}></input>
+                <button type='submit'>Entrar</button>
+            </form>
+        )
+    }
+
     return (
         <ContainerLogin>
             <img src={Logo} alt="logo" />
-            <input type="email" placeholder="Email"></input>
-            <input type="password" placeholder="Senha"></input>
-            <button>Entrar</button>
+            {LoadInputs}
             <Link to='/cadastro'> <p>Não tem uma conta? Cadastre-se!</p> </Link>
         </ContainerLogin>
     )
 }
 
 const ContainerLogin = styled.div`
-
     background-color: white;
     margin: auto auto;
     display: flex;
@@ -25,6 +80,12 @@ const ContainerLogin = styled.div`
     width: 100vw;
     height: 100vh;
     
+    form {
+        justify-content: center;
+        align-items: center;
+        margin-left: 37px;
+    }
+
     img {
         width: 180px;
         height: 179px;
@@ -71,4 +132,3 @@ const ContainerLogin = styled.div`
         margin-bottom: 150px;
     }
 `;
-

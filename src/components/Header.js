@@ -1,16 +1,19 @@
-import fotoPerfil from '../assets/imagens/fotoPerfil.png';
+import { useContext } from "react";
+import UserContext from '../Contexts/userContext';
 import styled from 'styled-components';
 
 
-export default function Header() {
+export default function Header () {
+
+    const {imgHeader} = useContext(UserContext)
+
     return (
         <ContainerHeader>
             <h1>TrackIt</h1>
-            <img src={fotoPerfil} alt="fotoPerfil" />
+            <img src={imgHeader} alt=""/>
         </ContainerHeader>
-    );
+    )
 }
-
 
 const ContainerHeader = styled.div `
     width: 100%;

@@ -1,23 +1,74 @@
 import { Link } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+import { ThreeDots } from "react-loader-spinner";
 import Logo from '../assets/imagens/logo.png';
 import styled from 'styled-components';
 
 export default function Register() {
+    const [infosRegister, setInfoRegister] = useState({email: "", password: "", name: "", url: ""});
+    const obj = {
+        email: infosRegister.email,
+        name: infosRegister.name,
+        image: infosRegister.url,
+        password: infosRegister.password
+    }
+
+    const [isloading, setIsLoading] = useState(false)
+    const navigate = useNavigate();
+
+    function RegisterNewUser(e) {
+        e.preventDefault()
+        setIsLoading(true)
+
+        const POSTURLREGISTER = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
+        
+        const promise = axios.post(POSTURLREGISTER, obj);
+
+        promise.then(response => {
+            const {data} = response;
+            console.log(data)
+            setIsLoading(false)
+            navigate("/")
+        })
+        promise.catch(err => {
+            setIsLoading(false)
+            alert("Erro ao registrar um novo usuário!")
+        })
+    }
+
     return (
+        isloading === false ?
         <ContainerRegister>
             <img src={Logo} alt="logo" />
-            <input type="email" placeholder="Email"></input>
-            <input type="password" placeholder="Senha"></input>
-            <input type="text" placeholder="Nome"></input>
-            <input type="text" placeholder="Foto"></input>
-            <button>Cadastrar</button>
+            <form onSubmit={RegisterNewUser}> 
+                <input type="email" placeholder="Email" value={infosRegister.email} disabled={false} onChange={(e) => setInfoRegister({...infosRegister, email: e.target.value})}></input>
+                <input type="password" placeholder="Senha" value={infosRegister.password} disabled={false} onChange={(e) => setInfoRegister({...infosRegister, password: e.target.value})}></input>
+                <input type="text" placeholder="Nome" value={infosRegister.name} disabled={false} onChange={(e) => setInfoRegister({...infosRegister, name: e.target.value})}></input>
+                <input type="text" placeholder="Foto" value={infosRegister.url} disabled={false} onChange={(e) => setInfoRegister({...infosRegister, url: e.target.value})}></input>
+                <button type='submit'>Cadastrar</button>
+            </form>
+            <Link to='/'> <p>Já tem uma conta? Faça login!</p> </Link>
+        </ContainerRegister>
+        :
+        <ContainerRegister>
+            <img src={Logo} alt="logo" />
+            <form onSubmit={RegisterNewUser}> 
+                <input type="email" placeholder="Email" value={infosRegister.email} disabled={true} onChange={(e) => setInfoRegister({...infosRegister, email: e.target.value})}></input>
+                <input type="password" placeholder="Senha" value={infosRegister.password} disabled={true} onChange={(e) => setInfoRegister({...infosRegister, password: e.target.value})}></input>
+                <input type="text" placeholder="Nome" value={infosRegister.name} disabled={true} onChange={(e) => setInfoRegister({...infosRegister, name: e.target.value})}></input>
+                <input type="text" placeholder="Foto" value={infosRegister.url} disabled={true} onChange={(e) => setInfoRegister({...infosRegister, url: e.target.value})}></input>
+                <button type='submit' disabled>
+                    <ThreeDots color="#FFF" height={50} width={50} />
+                </button>
+            </form>
             <Link to='/'> <p>Já tem uma conta? Faça login!</p> </Link>
         </ContainerRegister>
     )
 }
 
 const ContainerRegister = styled.div`
-
     background-color: white;
     margin: auto auto;
     display: flex;
@@ -25,6 +76,12 @@ const ContainerRegister = styled.div`
     justify-content: center;
     width: 100vw;
     height: 100vh;
+
+    form {
+        justify-content: center;
+        align-items: center;
+        margin-left: 37px;
+    }
     
     img {
         width: 180px;
@@ -71,5 +128,3 @@ const ContainerRegister = styled.div`
         margin-bottom: 80px;
     }
 `;
-
-
