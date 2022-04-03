@@ -1,74 +1,56 @@
 import styled from 'styled-components';
-import Vector from '../assets/imagens/Vector.png';
+import { Link } from 'react-router-dom';
+import ContagemProgresso from './ContagemProgresso';
 
 
-export default function Footer() {
+
+export default function Footer(props) {
+    const { id } = props
+
     return (
         <ContainerFooter>
-            <ContainerPalavras>
-                <h1>Hábitos</h1>
-                <h1>Histórico</h1>
-            </ContainerPalavras>
-                <ContainerHoje>
-                    <h2>Hoje</h2>
-                    <ContainerImagem>
-                    <img src={Vector} alt="vector" />
-                    </ContainerImagem>
-                </ContainerHoje>
+            <Link to="/habitos">
+                <button>Hábitos</button>
+            </Link>
+
+            <Link to="/hoje">
+                <ContainerProgresso>
+                   <ContagemProgresso /> 
+                </ContainerProgresso>
+            </Link>
+
+            <Link to="/historico">
+                <button>Histórico</button>
+            </Link>
         </ContainerFooter>
-    );
+    )
 }
 
-const ContainerFooter = styled.div `
-    width: 100vw;
-    height: 101px;
-    position: fixed;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
-
-const ContainerPalavras = styled.div `
-    width: 100vw;
+const ContainerFooter = styled.div`
+    width: 100%;
     height: 70px;
-    background-color: #FFFFFF;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     position: fixed;
     bottom: 0;
-    display: flex;
-    justify-content: space-between;
+    left: 0;
     
-    h1 {
+    button {
+        border: none;
         color: #52B6FF;
-        font-size: 18px;
-        margin-right: 31px;
-        margin-left: 31px;
-        margin-top: 22px;
+        font-family: 'Lexend Deca';
+        font-size: 17.976px;
+        background-color: white;
+        margin-left: 32px;
+        margin-right: 32px;
+        cursor: pointer;
     }
-`;
-
-const ContainerHoje = styled.div `
+`
+const ContainerProgresso = styled.div`
+    margin-bottom: 40px;
     width: 91px;
     height: 91px;
-    background-color: #52B6FF;
-    border-radius: 50px;
-    margin: auto auto;
-    margin-bottom: 10px;
-    display: flex;
-    z-index: 1;
-    position: absolute;
-    
-    h2 {
-        color: white;
-        font-size: 18px;
-        margin: auto auto;
-    }
-`;
-
-const ContainerImagem = styled.div `
-    display: flex;
-    z-index: 2;
-    position: absolute;
-    margin-left: 16px;
-    margin-top: 7px;
+    cursor: pointer;
 `;

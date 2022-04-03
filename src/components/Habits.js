@@ -1,8 +1,23 @@
+import axios from "axios";
+import { useState } from "react";
+import { useContext } from "react";
+import { useNavigate } from 'react-router-dom';
+import { ThreeDots } from "react-loader-spinner";
+import UserContext from '../Contexts/userContext';
+import styled from 'styled-components';
 import Header from './Header';
 import Footer from './Footer';
-import styled from 'styled-components';
 
 export default function Habits() {
+
+
+
+
+    
+
+
+
+
     return (
         <>
             <Header />
