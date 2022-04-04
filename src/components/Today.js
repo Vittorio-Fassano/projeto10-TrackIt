@@ -38,7 +38,7 @@ export default function Today() {
         });
     }, [token]);
 
-
+    console.log(items)
     return (
         <>
             <Header />
@@ -46,7 +46,6 @@ export default function Today() {
                 <ContainerDay>
                     <Day />
                 </ContainerDay>
-
                 <>
                     {items.map((item) => <RenderTodayHabit
                         setItems={setItems}
@@ -74,13 +73,20 @@ function RenderTodayHabit (props) {
 
     const IsCheckTrue = "#8FC549";
     const IsCheckFalse = "#EBEBEB";
+
+    const [checked, setChecked] = useState(done);
     
-
-    function HabitDone () {
+    function ToogleCheck () {
         console.log("done", id, done, name)
-
         
-        const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`
+        let URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/`
+        if (checked) {
+            URL += "uncheck"
+        } else {
+            URL += "check"
+        }
+
+        console.log(URL)
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -90,32 +96,12 @@ function RenderTodayHabit (props) {
         const promise = axios.post(URL, null, config)
         promise.then( response => {
             setAttApi(!attApi)
+            setChecked(!checked)
             
         })
         promise.catch(err => {
             console.log(id)
             console.log(err.response)
-        })
-    }
-
-    function HabitUndone () {
-        console.log("undone", id, done, name)
-
-        const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }
-
-        const promise = axios.post(URL, null, config)
-        promise.then( response => {
-            setAttApi(!attApi)
-            
-        })
-        promise.catch(err => {
-            console.log(id)
-            console.log(err)
         })
     }
 
@@ -127,11 +113,8 @@ function RenderTodayHabit (props) {
                     <p>Sequência atual: {currentSequence} dias</p>
                     <p>Seu recorde: {highestSequence} dias</p>
                 </Infos>
-                <Button  IsCheck={done ? IsCheckTrue : IsCheckFalse } onClick={() => {
-                    !done ?
-                    HabitDone(id)
-                    :
-                    HabitUndone(id)
+                <Button  IsCheck={checked ? IsCheckTrue : IsCheckFalse } onClick={() => {
+                   ToogleCheck(id)
                 }}>
                     <ion-icon name="checkmark"></ion-icon>
                 </Button>

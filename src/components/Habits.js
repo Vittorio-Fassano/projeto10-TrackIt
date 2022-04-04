@@ -28,14 +28,14 @@ function Habits() {
     const buttonSave = "#52B6FF;"
 
     const days = [
-        { id: 1, day: "D" },
-        { id: 2, day: "S" },
-        { id: 3, day: "T" },
+        { id: 0, day: "D" },
+        { id: 1, day: "S" },
+        { id: 2, day: "T" },
+        { id: 3, day: "Q" },
         { id: 4, day: "Q" },
-        { id: 5, day: "Q" },
-        { id: 6, day: "S" },
-        { id: 7, day: "S" }
-    ]
+        { id: 5, day: "S" },
+        { id: 6, day: "S" }
+    ] 
 
     useEffect(() => {
         const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
@@ -48,7 +48,7 @@ function Habits() {
         const promise = axios.get(URL, config)
         promise.then(response => {
             const { data } = response
-            console.log(data)
+            
             setMyHabits(data)
         })
         promise.catch(err => {
@@ -74,7 +74,6 @@ function Habits() {
         const promise = axios.post(URL, obj, config)
         promise.then(response => {
             const { data } = response
-            console.log(data)
             setMyHabits([...myHabits, data])
             setNewHabit("")
             ShowHabits()
@@ -95,8 +94,8 @@ function Habits() {
         const textColorSelected = "#ffffff"
         const textColorNotselected = "#DBDBDB"
 
-        const weekdays = [1, 2, 3, 4, 5, 6, 7];
-        const changeToLetter = { 1: "D", 2: "S", 3: "T", 4: "Q", 5: "Q", 6: "S", 7: "S" }
+        const weekdays = [0, 1, 2, 3, 4, 5, 6,];
+        const changeToLetter = { 0: "D", 1: "S", 2: "T", 3: "Q", 4: "Q", 5: "S", 6: "S" }
 
         return myHabits.map(habit => {
             const { name, days, id } = habit
@@ -117,7 +116,6 @@ function Habits() {
                         </BoxDay>
                     </div>
 
-
                     <ion-icon onClick={() => {
                         const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`
                         const config = {
@@ -127,7 +125,7 @@ function Habits() {
                         }
                         const promise = axios.delete(URL, config)
                         promise.then( () => {
-                            console.log("entrou")
+                            
                             setMyHabits([...myHabits])
                             navigate("/hoje")
                             ShowHabits()
@@ -140,6 +138,7 @@ function Habits() {
     }
 
     if (button === false && myHabits.length === 0) {
+       
         return (
             <>
                 <Header />
@@ -284,7 +283,6 @@ function Habits() {
                             </button>
                         </Buttons>
                     </BoxNewHabit>
-
                     <p className="description" >Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
                 </ContainerHabits>
                 <Footer />
@@ -317,7 +315,8 @@ const CreateHabits = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
+    margin-top: 70px;
+   
     p{
         margin-left:17px;
         font-family: 'Lexend Deca';
@@ -367,7 +366,6 @@ const BoxNewHabit = styled.div`
         font-size: 15px;
         color: #DBDBDB;
     }
-    
 `
 const BoxDay = styled.div`
     width: 311px;
