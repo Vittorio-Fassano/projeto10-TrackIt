@@ -409,7 +409,7 @@ const HabitsList = styled.div`
     background-color: #ffffff;
     border-radius: 5px;
     margin: auto auto;
-    margin-top: 200px;
+    margin-top: 0px;
     position: relative;
     margin-bottom: 15px;
     &:last-of-type {

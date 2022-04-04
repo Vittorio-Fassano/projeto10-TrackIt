@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import ContagemProgresso from './ContagemProgresso';
+import ProgressBar from './ProgressBar';
 
 
 
@@ -14,9 +14,9 @@ export default function Footer(props) {
             </Link>
 
             <Link to="/hoje">
-                <ContainerProgresso>
-                   <ContagemProgresso /> 
-                </ContainerProgresso>
+            <ContainerProgresso>
+                <ProgressBar />
+            </ContainerProgresso>
             </Link>
 
             <Link to="/historico">
